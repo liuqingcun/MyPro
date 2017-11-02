@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        #paging{
+            height:27px;
+            display: inline-block;
+            margin:60px 0;}
+        #paging li{
+             float:left;
+             width:32px;
+             height: 27px;
+             line-height:27px;
+             background:#efeeee;
+             text-align:center;
+             margin:0 1px;
+             cursor:pointer;
+            list-style: none;
+         }
+        #paging .prev,#paging .next{
+            width:63px;
+        }
+        #paging .page_red{
+            background:#f52735;
+            color:#fff;
+        }
+
+    </style>
+
+    <script src="jquery.js"></script>
+    <script src="jqPaginator.min.js"></script>
+</head>
+<body>
+
+
+
+    <div class="info_list">
+        <!--此处插入数据-->
+    </div>
+    <div id="paging">
+        <!--页码显示的地方(id与js中保持一致)-->
+    </div>
+
+
+</body>
+
+<script>
+
+
+
+    $('#paging').jqPaginator({
+        totalPages:1 ,
+        visiblePages: 10,
+        currentPage: 1,
+        activeClass:"page_red",
+        first:'<li class="prev">首页</li>',
+        prev: '<li class="prev">上一页</li>',
+        next: '<li class="next">下一页</li>',
+        last:'<li class="next">末页</li>',
+        page: '<li class="page">{{page}}</li>',
+        onPageChange: function (num) {
+
+            //num是当前页码
+            console.log(num);
+
+            var state=0;
+            var ajaxUrl="10.0.0.46:9891";
+            $.ajax({
+                type:"post",
+                url:ajaxUrl+"接口",
+                dataType: "json",
+                async:true,
+                data:{
+                    pageNum:num,
+                    pageSize:10,
+                    state:state
+                },
+                success:function(data){
+                    console.log(data);
+
+                    if(data.code==0){
+                        var innerHtml="";
+                        var dataList=data.result.list;
+                        if(dataList.length>0){
+                            for(var i=0;i<dataList.length;i++){
+                                innerHtml+='<div>'+dataList.id+'</div>'
+                            }
+                            $(".info_list").html(innerHtml);
+
+                            $('#paging').jqPaginator('option', {
+                                totalPages:Math.ceil(data.result.pages)
+                            });
+                        }else{
+                            $(".info_list").html("暂无数据");
+                        }
+
+                    }
+
+
+
+                },
+                error:function () {
+                    alert("XXXX")
+                }
+            });
+
+        }
+    });
+
+</script>
+
+</html>
