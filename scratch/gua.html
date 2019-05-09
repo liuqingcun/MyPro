@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>刮奖demo</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      background: #ABCDEF;
+      position: relative;
+    }
+
+    #box {
+      width: 400px;
+      height: 300px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      background: white;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <canvas id="canvas" width="400" height="300"></canvas>
+  </div>
+</body>
+<script>
+  scratch();
+
+  function scratch() {
+    var canvas = document.getElementById("canvas"); // 获取元素
+    canvas.style.zIndex = "1";
+    canvas.style.visibility = "visible";
+    var ctx = canvas.getContext("2d"); // 生成画布
+    var img = new Image();
+    img.src = "img/mask.png";
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);
+    };
+
+    var pos = 0, // 手指划过的距离
+      x = 0, // x轴走过的距离
+      y = 0; // y轴走过的距离
+
+    var startX = 0, // 手指开始的位置
+      startY = 0,
+      moveX = 0, // 手指移动的位置
+      moveY = 0;
+    canvas.ontouchstart = function (e) {
+      // 手指按下位置
+      startX = e.touches[0].pageX;
+      startY = e.touches[0].pageY;
+    };
+    canvas.ontouchmove = function (e) {
+      e.preventDefault();
+
+      var canPos = canvas.getBoundingClientRect();
+      var x1 = e.changedTouches[0].clientX - canPos.left;
+      var y1 = e.changedTouches[0].clientY - canPos.top;
+      ctx.clearRect(x1 - 15, y1 - 15, 30, 30);
+
+      moveX = e.touches[0].pageX;
+      moveY = e.touches[0].pageY;
+      x = startX - moveX;
+      y = startY - moveY;
+      pos += Math.abs(x);
+      pos += Math.abs(y);
+    };
+    canvas.ontouchend = function (e) {
+      // 手指抬起的位置
+      var endX = startX - e.changedTouches[0].pageX,
+        endY = startY - e.changedTouches[0].pageY;
+      if (pos >= 4000) {
+        canvas.style.zIndex = "-20";
+        canvas.style.visibility = "hidden";
+        canvas.width = canvas.width;
+        canvas.height = canvas.height;
+        ctx.lineWidth = 120;
+        var img = new Image();
+        img.src = "img/mask.png";
+        img.onload = function () {
+          ctx.drawImage(img, 0, 0);
+          ctx.globalCompositeOperation = "destination-out";
+        };
+        pos = 0;
+        x = 0;
+        y = 0;
+        num = 0;
+      }
+    }
+  };
+</script>
+
+</html>
