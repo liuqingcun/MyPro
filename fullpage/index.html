@@ -1,89 +1,180 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-    <meta charset="utf-8">
-    <title>用fullPage.js制作搜狐快站页面效果演示_dowebok</title>
-    <link rel="stylesheet" href="http://www.dowebok.com/demo/2014/77/css/jquery.fullPage.css">
-    <style>
-        #side { position: fixed; left: 0; top: 0; z-index: 10; width: 300px; height: 100%; background-image: url(images/df-side.png);}
-        .inner { position: absolute; left: 50%; top: 50%; width: 226px; margin: -112px 0 0 -113px;}
-        .hgroup { width: 226px; height: 81px; margin: 0 auto; text-indent: -9999px; background-image: url(images/df-logo.png);}
-        .start { display: block; width: 186px; height: 56px; margin: 66px auto 0; text-indent: -9999px; overflow: hidden; background-image: url(images/df-start.png);}
-        #menu { position: absolute; right: -20px; top: 50%; width: 40px; margin-top: -170px; padding: 0; list-style-type: none;}
-        #menu li { float: left;}
-        #menu a { display: block; width: 28px; height: 28px; margin: 20px 6px; border-radius: 14px; text-indent: -9999px; overflow: hidden; background-color: #a0afb9; background-position: 50%; background-repeat: no-repeat;}
-        #menu .a1 { background-image: url(images/df-01.png);}
-        #menu .a2 { background-image: url(images/df-02.png);}
-        #menu .a3 { background-image: url(images/df-03.png);}
-        #menu .a4 { background-image: url(images/df-04.png);}
-        #menu .a5 { background-image: url(images/df-05.png);}
-        #menu a:hover, #menu .active a { margin: 14px 0; border: 6px solid #fff; box-shadow: 1px 1px 3px 1px #b4d7ed; border-radius: 20px; background-color: #239ae6;}
-        .section { margin-left: 300px; text-align: center; font: 50px "Microsoft Yahei"; color: #fff;}
-        .section .imgbox { margin-left: 300px;}
-        .section img { position: relative; left: -300px; display: block; margin: 0 auto;}
-    </style>
-    <script src="http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js"></script>
-    <script src="http://cdn.staticfile.org/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script src="http://www.dowebok.com/demo/2014/77/js/jquery.fullPage.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $.fn.fullpage({
-                slidesColor: ['#fff', '#fff', '#fff', '#fff', '#fff'],
-                anchors: ['page1', 'page2', 'page3', 'page4', 'page5'],
-                menu: '#menu'
-            });
-        });
-    </script>
+  <meta charset="utf-8">
+  <title>fullPage.js</title>
+  <link rel="stylesheet" href="http://www.dowebok.com/demo/2014/77/css/jquery.fullPage.css">
+  <style>
+    #side {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 10;
+      width: 300px;
+      height: 100%;
+      background-image: url(images/df-side.png);
+    }
+
+    .inner {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 226px;
+      margin: -112px 0 0 -113px;
+    }
+
+    .hgroup {
+      width: 226px;
+      height: 81px;
+      margin: 0 auto;
+      text-indent: -9999px;
+      background-image: url(images/df-logo.png);
+    }
+
+    .start {
+      display: block;
+      width: 186px;
+      height: 56px;
+      margin: 66px auto 0;
+      text-indent: -9999px;
+      overflow: hidden;
+      background-image: url(images/df-start.png);
+    }
+
+    #menu {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      width: 40px;
+      margin-top: -170px;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    #menu li {
+      float: left;
+    }
+
+    #menu a {
+      display: block;
+      width: 28px;
+      height: 28px;
+      margin: 20px 6px;
+      border-radius: 14px;
+      text-indent: -9999px;
+      overflow: hidden;
+      background-color: #a0afb9;
+      background-position: 50%;
+      background-repeat: no-repeat;
+    }
+
+    #menu .a1 {
+      background-image: url(images/df-01.png);
+    }
+
+    #menu .a2 {
+      background-image: url(images/df-02.png);
+    }
+
+    #menu .a3 {
+      background-image: url(images/df-03.png);
+    }
+
+    #menu .a4 {
+      background-image: url(images/df-04.png);
+    }
+
+    #menu .a5 {
+      background-image: url(images/df-05.png);
+    }
+
+    #menu a:hover,
+    #menu .active a {
+      margin: 14px 0;
+      border: 6px solid #fff;
+      box-shadow: 1px 1px 3px 1px #b4d7ed;
+      border-radius: 20px;
+      background-color: #239ae6;
+    }
+
+    .section {
+      margin-left: 300px;
+      text-align: center;
+      font: 50px "Microsoft Yahei";
+      color: #fff;
+    }
+
+    .section .imgbox {
+      margin-left: 300px;
+    }
+
+    .section img {
+      position: relative;
+      left: -300px;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+  <script src="http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js"></script>
+  <script src="http://cdn.staticfile.org/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="http://www.dowebok.com/demo/2014/77/js/jquery.fullPage.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $.fn.fullpage({
+        slidesColor: ['#fff', '#fff', '#fff', '#fff', '#fff'],
+        anchors: ['page1', 'page2', 'page3', 'page4', 'page5'],
+        menu: '#menu'
+      });
+    });
+  </script>
 </head>
 
 <body>
 
-<div id="side">
+  <div id="side">
     <div class="inner">
-        <div class="hgroup">
-            <h1><a href="http://www.dowebok.com/">搜狐快站</a></h1>
-            <h2>专业的移动建站平台</h2>
-        </div>
-        <a class="start" href="http://www.dowebok.com/">开始建站</a>
+      <div class="hgroup">
+        <h1>分页</h1>
+        <h2>专业的移动建站平台</h2>
+      </div>
+      <a class="start" href="http://www.dowebok.com/">开始建站</a>
     </div>
     <ul id="menu">
-        <li class="active" data-menuanchor="page1"><a class="a1" href="#page1" title="快速创建移动站点">快速创建移动站点</a></li>
-        <li data-menuanchor="page2"><a class="a2" href="#page2" title="丰富的模板">丰富的模板</a></li>
-        <li data-menuanchor="page3"><a class="a3" href="#page3" title="强大的功能组件">强大的功能组件</a></li>
-        <li data-menuanchor="page4"><a class="a4" href="#page4" title="多种屏幕预览">多种屏幕预览</a></li>
-        <li data-menuanchor="page5"><a class="a5" href="#page5" title="全网高速访问">全网高速访问</a></li>
+      <li class="active" data-menuanchor="page1"><a class="a1" href="#page1" title="快速创建移动站点">快速创建移动站点</a></li>
+      <li data-menuanchor="page2"><a class="a2" href="#page2" title="丰富的模板">丰富的模板</a></li>
+      <li data-menuanchor="page3"><a class="a3" href="#page3" title="强大的功能组件">强大的功能组件</a></li>
+      <li data-menuanchor="page4"><a class="a4" href="#page4" title="多种屏幕预览">多种屏幕预览</a></li>
+      <li data-menuanchor="page5"><a class="a5" href="#page5" title="全网高速访问">全网高速访问</a></li>
     </ul>
-</div>
+  </div>
 
-<div class="section">
+  <div class="section">
     <div class="imgbox">
-        <img src="images/1.jpg" alt="">
+      <img src="images/1.jpg" alt="">
     </div>
-</div>
-<div class="section">
+  </div>
+  <div class="section">
     <div class="imgbox">
-        <img src="images/2.jpg" alt="">
+      <img src="images/2.jpg" alt="">
     </div>
-</div>
-<div class="section">
+  </div>
+  <div class="section">
     <div class="imgbox">
-        <img src="images/3.jpg" alt="">
+      <img src="images/3.jpg" alt="">
     </div>
-</div>
-<div class="section">
+  </div>
+  <div class="section">
     <div class="imgbox">
-        <img src="images/4.jpg" alt="">
+      <img src="images/4.jpg" alt="">
     </div>
-</div>
-<div class="section">
+  </div>
+  <div class="section">
     <div class="imgbox">
-        <img src="images/5.jpg" alt="">
+      <img src="images/5.jpg" alt="">
     </div>
-</div>
-
-<a href="http://www.dowebok.com/" style="display: none;">dowebok</a>
-<a href="http://www.dowebok.com/80.html" style="display: none;">用fullPage.js制作搜狐快站页面效果</a>
-
+  </div>
 
 </body>
+
 </html>
