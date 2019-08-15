@@ -37,25 +37,23 @@ function copyText(){
     });
 }
 function Clipboard(text, success, fail) {
-    // ----------创建一个value为text且隐藏的textarea元素-----------//
+    // ------创建一个value为text且隐藏的textarea元素------//
     textArea = document.createElement('textArea')
     textArea.value = text
-    // textArea.style.opacity = '0'
+    textArea.style.opacity = '0'
     textArea.setAttribute('readonly', 'readonly')
     document.body.appendChild(textArea)
-    // ------------------选择textarea中内容-----------------------//
+    // --------------选择textarea中内容------------------//
     if (navigator.userAgent.match(/ipad|iphone/i)) {
-      window.getSelection().removeAllRanges() // 这段代码必须放在前面否则无效
+      window.getSelection().removeAllRanges()
       let range = document.createRange()
-      // 选中需要复制的节点
       range.selectNode(textArea)
-      // 执行选中元素
       window.getSelection().addRange(range)
       textArea.setSelectionRange(0, 999999)
     } else {
       textArea.select()
     }
-    // -----------------------复制内容---------------------------//
+    // -------------------复制内容-----------------------//
     try {
       if (document.execCommand('Copy')) {
         success('复制成功！',text)
@@ -66,10 +64,9 @@ function Clipboard(text, success, fail) {
     catch (err) {
       fail('复制失败！请手动复制！')
     }
-    // -------------------移除选中的元素------------------------//
+    // -------------------移除元素----------------------//
     window.getSelection().removeAllRanges()
     document.body.removeChild(textArea)
-
 }
 </script>
 </html>
