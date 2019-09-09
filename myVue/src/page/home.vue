@@ -15,6 +15,12 @@ export default {
       linkList: [{
         title:"emoji表情",
         url:"/emoji"
+      },{
+        title:"事件修饰符",
+        url:"/event"
+      },{
+        title:"图片裁剪",
+        url:"/clip"
       }]
     }
   }
