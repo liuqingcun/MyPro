@@ -21,6 +21,9 @@ export default {
       },{
         title:"图片裁剪",
         url:"/clip"
+      },{
+        title:"日历",
+        url:"/calendar"
       }]
     }
   }

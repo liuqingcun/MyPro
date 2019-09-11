@@ -4,6 +4,7 @@ import Home from '@/page/home'
 import Emoji from '@/page/emoji/emoji'
 import Event from '@/page/event/main'
 import Clip from '@/page/clipImg/main'
+import Calendar from '@/page/calendar/main'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/clip',
       name: 'Clip',
       component: Clip
+    },
+    {
+      path: '/calendar',
+      name: 'Calendar',
+      component: Calendar
     }
   ]
 })
