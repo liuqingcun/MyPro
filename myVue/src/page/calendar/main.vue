@@ -1,28 +1,17 @@
 <template>
   <div class="calendar">
-      <select name="year" id="" v-model="year">
-          <option value="2015">2015</option>
-          <option value="2016">2016</option>
-          <option value="2017">2017</option>
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-          <option value="2020">2020</option>
+    <!-- 日期选择 -->
+    <div class="control">
+      <select name="selectYear" id="" v-model="selectYear">
+          <option v-for='(item,index) in yearOption' :value="item" :key="index">{{item}}</option>
       </select>
-      <select name="month" id="" v-model="month">
-          <option value="0">1</option>
-          <option value="1">2</option>
-          <option value="2">3</option>
-          <option value="3">4</option>
-          <option value="4">5</option>
-          <option value="5">6</option>
-          <option value="6">7</option>
-          <option value="7">8</option>
-          <option value="8">9</option>
-          <option value="9">10</option>
-          <option value="10">11</option>
-          <option value="11">12</option>
+      <select name="selectMonth" id="" v-model="selectMonth">
+          <option v-for='(item,index) in monthOption' :value="item" :key="index">{{item+1}}</option>
       </select>
       <button @click="changeDate">确定</button>
+      <button @click="selectToday">今日</button>
+    </div>
+    <!-- 日历展示 -->
     <div class="container">
       <div class="weekRow">
         <div class="weekItem" v-for="(item,index) in weekText" :key="index">{{item}}</div>
@@ -35,9 +24,10 @@
         >{{item}}</div>
         <div
           class="dayItem currentMonth"
+          :class="{'istoday':item.istoday,'selected':item.selected}"
           v-for="(item,index) in currentMonthData"
           :key="'now'+index"
-          @click="clickDay(item)"
+          @click="clickDay(item,index)"
         >{{item.d}}</div>
         <div
           class="dayItem nextMonth"
@@ -55,30 +45,42 @@ export default {
   components: {},
   data() {
     return {
+      yearOption: [2016,2017,2018,2019],
+      monthOption: [0,1,2,3,4,5,6,7,8,9,10,11],
       weekText: ["日", "一", "二", "三", "四", "五", "六"],
       preMonthData: [],
       currentMonthData: [],
       nextMonthData: [],
-      year: null,
-      month: null
+      selectYear: null,
+      selectMonth: null
     };
   },
   mounted() {
-      this.year = new Date().getFullYear();
-      this.month = new Date().getMonth();
-    this.setData(this.year, this.month+1, 1);
+    this.currentYear = new Date().getFullYear();
+    this.currentMonth = new Date().getMonth();
+    this.currentDay = new Date().getDate();
+    this.setData(this.currentYear, this.currentMonth+1);
   },
   methods: {
-    clickDay(item) {
-      let dateString =
-        item.y + "-" + this.doubleNum(item.m) + "-" + this.doubleNum(item.d);
-      console.log(dateString);
+    clickDay(item,index) {
+      this.currentMonthData.forEach((dataItem,dataIndex) => {
+        if(index === dataIndex){
+          this.$set(this.currentMonthData[dataIndex],'selected',true)
+        }else{
+          this.$set(this.currentMonthData[dataIndex],'selected',false)
+        }
+      });
+      console.log(item.string)
+    },
+    selectToday(){
+      this.setData(this.currentYear, this.currentMonth+1, this.currentDay);
     },
     changeDate(){
-        this.setData(Number(this.year), Number(this.month)+1, 1);
-        console.log(this.month+1)
+      this.setData(Number(this.selectYear), Number(this.selectMonth)+1);
     },
     setData(year, month, day) {
+      this.selectYear = year;
+      this.selectMonth = month-1;
       //   清空数据
       this.preMonthData = [];
       this.currentMonthData = [];
@@ -109,16 +111,36 @@ export default {
       }
       //   当月数据
       for (let i = 1; i < currentMonthDayNum + 1; i++) {
+        // 是否为今天
+        let istoday;
+        if(year===this.currentYear&&month-1===this.currentMonth&&this.currentDay===i){
+          istoday = true
+        }else{
+          istoday = false
+        }
+        // 选中日期day
+        let selected;
+        if(year===this.currentYear&&month-1===this.currentMonth&&day===i){
+          selected = true
+        }else{
+          selected = false
+        }
+        // 日期字符串
+        let dateString =
+          year + "-" + this.doubleNum(month) + "-" + this.doubleNum(i);
+        // 每日数据
         let itemData = {
           y: year,
           m: month,
-          d: i
+          d: i,
+          istoday: istoday,
+          selected: selected,
+          string: dateString
         };
         this.currentMonthData.push(itemData);
       }
       // 下月数据
       let maxWeek = new Date(year, month - 1, currentMonthDayNum).getDay();
-      console.log("maxWeek:", maxWeek);
       for (let i = 0; i < 6 - maxWeek; i++) {
         this.nextMonthData.push(i + 1);
       }
@@ -133,7 +155,7 @@ export default {
       return countArr;
     },
     doubleNum(num) {
-      num < 10 ? "0" + num : num;
+      num < 10 ? num = "0" + num : num = num;
       return num;
     }
   }
@@ -146,12 +168,35 @@ export default {
   width: 700px;
   margin: 0 auto;
 }
-.container {
+
+.control{
+  padding: 20px;
+  text-align: center;
 }
+.control select,.control button{
+  margin: 0 10px;
+}
+.control select{
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 6px;
+}
+.control option{
+  line-height: 30px;
+}
+.control button{
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 6px;
+}
+
 .weekRow {
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
+  font-weight: bold;
 }
 .weekItem {
   border: 1px solid #abcdef;
@@ -180,6 +225,12 @@ export default {
 .currentMonth {
   background: #fff;
   cursor: pointer;
+}
+.istoday{
+  background: #0ae56e;
+}
+.selected{
+  background: #abcdef;
 }
 .nextMonth {
   background: #ccc;
