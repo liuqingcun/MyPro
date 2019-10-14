@@ -3,10 +3,10 @@
     <!-- 日期选择 -->
     <div class="control">
       <select name="selectYear" id="" v-model="selectYear">
-          <option v-for='(item,index) in yearOption' :value="item" :key="index">{{item}}</option>
+        <option v-for='(item,index) in yearOption' :value="item" :key="index">{{item}}</option>
       </select>
       <select name="selectMonth" id="" v-model="selectMonth">
-          <option v-for='(item,index) in monthOption' :value="item" :key="index">{{item+1}}</option>
+        <option v-for='(item,index) in monthOption' :value="item" :key="index">{{item+1}}</option>
       </select>
       <button @click="changeDate">确定</button>
       <button @click="selectToday">今日</button>
@@ -17,11 +17,13 @@
         <div class="weekItem" v-for="(item,index) in weekText" :key="index">{{item}}</div>
       </div>
       <div class="dayBox">
+        <!-- 上月 -->
         <div
           class="dayItem preMonth"
           v-for="(item,index) in preMonthData"
           :key="'pre'+index"
         >{{item}}</div>
+        <!-- 当月 -->
         <div
           class="dayItem currentMonth"
           :class="{'istoday':item.istoday,'selected':item.selected}"
@@ -29,6 +31,7 @@
           :key="'now'+index"
           @click="clickDay(item,index)"
         >{{item.d}}</div>
+        <!-- 下月 -->
         <div
           class="dayItem nextMonth"
           v-for="(item,index) in nextMonthData"
@@ -104,7 +107,7 @@ export default {
       console.log("minWeek:", minWeek);
       if (minWeek > 0) {
         for (let i = 0; i < minWeek; i++) {
-          this.preMonthData.push(preMonthDayNum - minWeek + i);
+          this.preMonthData.push(preMonthDayNum - minWeek + i+1);
         }
       } else {
         this.preMonthData = [];
