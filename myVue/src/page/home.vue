@@ -1,40 +1,29 @@
 <template>
   <div class="container">
     <div class="linkList">
-      <router-link v-for="(item,index) in linkList" :to='item.url' :key="index">
-        <div class="linkItem" >{{index+1}}、{{item.title}}</div>
+      <router-link v-for="(item,index) in linkList" :to='item.path' :key="index">
+        <div class="linkItem" >{{index+1}}、{{item.info.title}}</div>
       </router-link>
     </div>
   </div>
 </template>
 <script>
+import { exportRouterList } from "@/router/index";
 export default {
-  name: 'Home',
-  data () {
+  name: "Home",
+  data() {
     return {
-      linkList: [{
-        title:"emoji表情",
-        url:"/emoji"
-      },{
-        title:"事件修饰符",
-        url:"/event"
-      },{
-        title:"图片裁剪",
-        url:"/clip"
-      },{
-        title:"日历",
-        url:"/calendar"
-      },{
-        title:"直播",
-        url:"/live"
-      }]
-    }
+      linkList: []
+    };
   },
   created() {
-  },
-}
+    console.log(exportRouterList);
+    this.linkList = exportRouterList.filter(function(item) {
+      return item.info.show;
+    });
+  }
+};
 </script>
 
 <style scoped>
-
 </style>
