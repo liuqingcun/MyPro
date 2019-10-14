@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/page/home'
+
 import Emoji from '@/page/emoji/emoji'
 import Event from '@/page/event/main'
 import Clip from '@/page/clipImg/main'
 import Calendar from '@/page/calendar/main'
+import Live from '@/page/live/live'
 
 Vue.use(Router)
 
@@ -34,6 +36,11 @@ export default new Router({
       path: '/calendar',
       name: 'Calendar',
       component: Calendar
+    },
+    {
+      path: '/live',
+      name: 'Live',
+      component: Live
     }
   ]
 })

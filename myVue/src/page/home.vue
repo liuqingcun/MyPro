@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="linkList">
-      <router-link v-for="(item,index) in linkList" :to='item.url' :key="item">
+      <router-link v-for="(item,index) in linkList" :to='item.url' :key="index">
         <div class="linkItem" >{{index+1}}、{{item.title}}</div>
       </router-link>
     </div>
@@ -24,9 +24,14 @@ export default {
       },{
         title:"日历",
         url:"/calendar"
+      },{
+        title:"直播",
+        url:"/live"
       }]
     }
-  }
+  },
+  created() {
+  },
 }
 </script>
 
